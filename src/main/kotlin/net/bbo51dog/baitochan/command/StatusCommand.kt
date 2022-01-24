@@ -17,7 +17,6 @@ class StatusCommand : Command() {
     }
 
     override fun execute(event: CommandEvent?) {
-        event?.reply("test")
         val connection = URL(Companion.URL_BASE + Companion.ADDRESS).openConnection() as HttpURLConnection
         connection.requestMethod = "GET"
         connection.connect()

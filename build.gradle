@@ -1,10 +1,13 @@
 plugins {
+    id 'application'
     id 'org.jetbrains.kotlin.jvm' version '1.6.10'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-group 'org.example'
+group 'net.bbo51dog'
 version '1.0-SNAPSHOT'
+
+mainClassName = 'net.bbo51dog.baitochan.MainKt'
 
 repositories {
     jcenter()

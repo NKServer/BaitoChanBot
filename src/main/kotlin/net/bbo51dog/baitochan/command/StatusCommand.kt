@@ -24,14 +24,17 @@ class StatusCommand : Command() {
         val builder = EmbedBuilder()
             .setTitle("NKServer Status", "https://www.nkserver.net/")
         if (data.get("online").asBoolean()) {
-            var players = ""
-            data.get("players").get("list").forEach {
-                players += it.asText() + ", "
+            val playerListNode = data.get("players").get("list")
+            if (playerListNode !== null) {
+                var players = ""
+                data.get("players").get("list").forEach {
+                    players += it.asText() + ", "
+                }
+                builder.addField("Players", players, false)
             }
             builder
                 .setDescription("サーバーはOnlineだよ〜")
                 .setColor(Color.GREEN)
-                .addField("Players", players, false)
                 .addField("PlayerCount", data.get("players").get("online").asText() + " / " + data.get("players").get("max").asText(), true)
                 .addField("Version", data.get("version").asText(), true)
         } else {

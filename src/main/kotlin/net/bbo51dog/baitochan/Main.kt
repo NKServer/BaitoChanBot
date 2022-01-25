@@ -15,10 +15,11 @@ import java.util.concurrent.TimeUnit
 
 const val TOKEN_ENV = "BAITO_CHAN_TOKEN"
 const val COMMAND_PREFIX = "bc!"
+const val OWNER_ID = "525907341950844939"
 
 fun main() {
     val commandClient = CommandClientBuilder()
-        .setOwnerId("")
+        .setOwnerId(OWNER_ID)
         .setPrefix(COMMAND_PREFIX)
         .addCommand(StatusCommand())
         .build()

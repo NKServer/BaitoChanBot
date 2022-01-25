@@ -8,6 +8,12 @@ import net.dv8tion.jda.api.managers.ChannelManager
 import java.awt.Color
 import java.net.HttpURLConnection
 import java.net.URL
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.OffsetTime
+import java.time.ZoneOffset
+import java.time.temporal.TemporalAccessor
+import java.util.*
 
 class StatusCommand : Command() {
 
@@ -21,8 +27,12 @@ class StatusCommand : Command() {
         connection.requestMethod = "GET"
         connection.connect()
         val data = jacksonObjectMapper().readTree(connection.inputStream)
+        val cacheTime = data.get("debug").get("cachetime").asLong()
         val builder = EmbedBuilder()
             .setTitle("NKServer Status", "https://www.nkserver.net/")
+        if (!cacheTime.equals(0)) {
+            builder.setTimestamp(LocalDateTime.ofEpochSecond(cacheTime, 0, ZoneOffset.UTC))
+        }
         if (data.get("online").asBoolean()) {
             val playerListNode = data.get("players").get("list")
             if (playerListNode !== null) {

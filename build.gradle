@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'net.bbo51dog'
-version '1.0.3'
+version currentVersion
 
 mainClassName = 'net.bbo51dog.baitochan.MainKt'
 

@@ -2,6 +2,7 @@ package net.bbo51dog.baitochan
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jagrosh.jdautilities.command.CommandClientBuilder
+import net.bbo51dog.baitochan.command.AboutCommand
 import net.bbo51dog.baitochan.command.StatusCommand
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.JDA
@@ -21,7 +22,10 @@ fun main() {
     val commandClient = CommandClientBuilder()
         .setOwnerId("")
         .setPrefix(COMMAND_PREFIX)
-        .addCommand(StatusCommand())
+        .addCommands(
+            AboutCommand(),
+            StatusCommand(),
+        )
         .setHelpConsumer { event ->
             val builder = EmbedBuilder()
                 .setTitle("バイトちゃんBot Help")

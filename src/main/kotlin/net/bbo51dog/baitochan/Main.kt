@@ -3,6 +3,7 @@ package net.bbo51dog.baitochan
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jagrosh.jdautilities.command.CommandClientBuilder
 import net.bbo51dog.baitochan.command.StatusCommand
+import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
@@ -15,13 +16,20 @@ import java.util.concurrent.TimeUnit
 
 const val TOKEN_ENV = "BAITO_CHAN_TOKEN"
 const val COMMAND_PREFIX = "bc!"
-const val OWNER_ID = "525907341950844939"
 
 fun main() {
     val commandClient = CommandClientBuilder()
-        .setOwnerId(OWNER_ID)
+        .setOwnerId("")
         .setPrefix(COMMAND_PREFIX)
         .addCommand(StatusCommand())
+        .setHelpConsumer { event ->
+            val builder = EmbedBuilder()
+                .setTitle("バイトちゃんBot Help")
+            event.client.commands.forEach {
+                builder.addField("__" + event.client.textualPrefix + it.name + "__", ">> " + it.help, false)
+            }
+            event.reply(builder.build())
+        }
         .build()
 
     val jda = JDABuilder.createDefault(System.getenv(TOKEN_ENV))

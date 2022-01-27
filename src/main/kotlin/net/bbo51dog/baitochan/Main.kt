@@ -25,6 +25,7 @@ fun main() {
         .setHelpConsumer { event ->
             val builder = EmbedBuilder()
                 .setTitle("バイトちゃんBot Help")
+                .setDescription("メンションされるとお話するよ")
             event.client.commands.forEach {
                 builder.addField("__" + event.client.textualPrefix + it.name + "__", ">> " + it.help, false)
             }
@@ -33,7 +34,10 @@ fun main() {
         .build()
 
     val jda = JDABuilder.createDefault(System.getenv(TOKEN_ENV))
-        .addEventListeners(commandClient)
+        .addEventListeners(
+            commandClient,
+            EventListener()
+        )
         .build()
 
     updateActivity(jda, Executors.newScheduledThreadPool(1))

@@ -31,9 +31,13 @@ class StatusCommand : Command() {
         val cacheTime = data.get("debug").get("cachetime").asLong()
         val builder = EmbedBuilder()
             .setTitle("NKServer Status", "https://www.nkserver.net/")
-        if (!cacheTime.equals(0)) {
-            builder.setTimestamp(LocalDateTime.ofEpochSecond(cacheTime, 0, ZoneOffset.UTC))
-        }
+        builder.setTimestamp(
+            if (!cacheTime.equals(0L)) {
+                LocalDateTime.now()
+            } else {
+                LocalDateTime.ofEpochSecond(cacheTime, 0, ZoneOffset.UTC)
+            }
+        )
         if (data.get("online").asBoolean()) {
             val playerListNode = data.get("players").get("list")
             if (playerListNode !== null) {

@@ -26,7 +26,7 @@ class EventListener : ListenerAdapter() {
         "なまけものって高校生なのに彼女いたことないらしいですよ？",
         "びーぼは最近失恋したみたいです。。。",
         "なまけものの年齢は2022年2月現在では16歳のようです！",
-        "私の趣味は本を読むことです！本屋に働いでるのも本が好きだからです！",
+        "私の趣味は本を読むことです！本屋に働いてるのも本が好きだからです！",
         "さwいｗさwなwwwって古の文化があるみたいです、、、私は知らないですけど、、、",
         "なまけもののツイッターは@lazyperson0710です！",
         "びーぼのツイッターは@bbo51dogです！",
@@ -41,7 +41,6 @@ class EventListener : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.author.isBot) return
         if (event.message.mentionedUsers.contains(event.jda.selfUser)) {
-            event.channel.sendTyping().queue()
             event.channel.sendMessage(mentionedMessages.random()).queue()
         }
     }

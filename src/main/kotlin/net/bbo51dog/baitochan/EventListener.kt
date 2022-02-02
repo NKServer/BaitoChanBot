@@ -41,6 +41,7 @@ class EventListener : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.author.isBot) return
         if (event.message.mentionedUsers.contains(event.jda.selfUser)) {
+            event.channel.sendTyping().queue()
             event.channel.sendMessage(mentionedMessages.random()).queue()
         }
     }

@@ -8,10 +8,7 @@ import net.dv8tion.jda.api.managers.ChannelManager
 import java.awt.Color
 import java.net.HttpURLConnection
 import java.net.URL
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.OffsetTime
-import java.time.ZoneOffset
+import java.time.*
 import java.time.temporal.TemporalAccessor
 import java.util.*
 
@@ -33,9 +30,9 @@ class StatusCommand : Command() {
             .setTitle("NKServer Status", "https://www.nkserver.net/")
         builder.setTimestamp(
             if (!cacheTime.equals(0L)) {
-                LocalDateTime.now()
-            } else {
                 LocalDateTime.ofEpochSecond(cacheTime, 0, ZoneOffset.UTC)
+            } else {
+                ZonedDateTime.now(ZoneId.of("Asia/Tokyo"))
             }
         )
         if (data.get("online").asBoolean()) {

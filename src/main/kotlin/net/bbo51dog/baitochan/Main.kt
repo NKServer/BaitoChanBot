@@ -48,15 +48,17 @@ fun main() {
 }
 
 fun updateActivity(jda: JDA, scheduler: ScheduledExecutorService) {
-    scheduler.schedule(
+    scheduler.scheduleAtFixedRate(
         {
             val connection = URL(StatusCommand.URL_BASE + StatusCommand.ADDRESS).openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
             connection.connect()
             val data = jacksonObjectMapper().readTree(connection.inputStream)
-            jda.presence.activity = Activity.playing(COMMAND_PREFIX + " - " + data.get("players").get("online").asText() + " Online Players")
-            updateActivity(jda, scheduler)
+            jda.presence.activity = Activity.playing(
+                COMMAND_PREFIX + " - " + data.get("players").get("online").asText() + " Online Players"
+            )
         },
+        0,
         1,
         TimeUnit.MINUTES
     )
